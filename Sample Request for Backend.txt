@@ -1,0 +1,33 @@
+Admin functionality: 
+2. Admin can do all the functions similar to co-ordinator.------------------
+3. Admin can able to login-------------------
+4. Admin can add new co-ordinator and co Ordinator login--------------
+
+
+Co- ordinator functionality:
+1. Able to create rooms for each year's. ---------------------
+2. Able to assign a number of students in each room. -----------------
+3. Able to assign teachers to rooms. -----------------
+4. Able to delete or add or edit the room ----------------
+5. Able to delete or edit or add students in the students list.-------------
+6. Able to see students list and classes.-------------------
+7. Able to see the overall students list and classes.----------------
+8. Able to mark attendance and download the attendance report.---------------
+9. Able to see a particular student attendance report and able to download.-----------
+10. Able to see the class attendance report and able to download.--------------
+11. Able to see overall present and absent in a year----------------
+12. Able to see the number of present and absent in the class.------------
+14. Able login for coordinator, teacger and admin -------------
+15.Add new student.--------------
+
+
+1. Teachers are able to see students list in a based class number.---------------
+2. Teachers are able to login.-------------------
+3. Teachers are able to mark attendance and download the attendance report.---------------
+5. Teachers are able to see particular student attendance reports and can download it.------------------
+6. Teachers can view students lists in a classroom.--------------------
+7. Teachers are able to see Total numbers of present and absent in a class.--------------
+
+Future options:
+
+1. Delete attendance details based on year's (So old students data can download and clear data in database)
