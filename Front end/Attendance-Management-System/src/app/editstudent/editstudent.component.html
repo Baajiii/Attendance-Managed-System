@@ -1,0 +1,350 @@
+<head>
+  <title>Co-ordinator dashboard</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+  />
+</head>
+<body>
+  <!-- =============== Navigation ================ -->
+  <div class="container">
+    <div class="navigation">
+      <ul>
+        <li>
+          <a href="/home">
+            <span class="icon">
+              <i class="fas fa-school fa-2x"></i>
+            </span>
+
+            <span id="brand" class="title">JMC</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/home">
+            <span class="icon">
+              <i class="fas fa-home"></i>
+            </span>
+            <span class="title">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/student">
+            <span class="icon">
+              <i class="fas fa-user"></i>
+            </span>
+            <span class="title">Students</span>
+          </a>
+        </li>
+        <li></li>
+        <li>
+          <a routerLink="/addstudent">
+            <span class="icon">
+              <i class="fas fa-users"></i>
+            </span>
+            <span class="title">Add Students</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/findstudent">
+            <span class="icon">
+              <i class="fas fa-search"></i>
+            </span>
+            <span class="title">Find Student</span>
+          </a>
+        </li>
+        <li></li>
+        <li>
+          <a routerLink="/searchbyyear">
+            <span class="icon">
+              <i class="fas fa-eye"></i>
+            </span>
+            <span class="title">Search Students </span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/room">
+            <span class="icon">
+              <i class="fas fa-building"></i>
+            </span>
+            <span class="title">Class</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/attendancedate">
+            <span class="icon">
+              <i class="fas fa-clipboard-list"></i>
+            </span>
+            <span class="title">Attendance</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="logout()" href="">
+            <span class="icon">
+              <i class="fas fa-sign-out"></i>
+            </span>
+            <span class="title">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ========================= Main ==================== -->
+    <div class="main">
+      <div class="topbar">
+        <div class="toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="logout" style="margin-left: 1000px">
+          <a (click)="logout()" href="">
+            <span class="icon">
+              <i class="fas fa-sign-out-alt fa-2x"></i>
+            </span>
+          </a>
+        </div>
+        <div class="user">
+          <img src="assets/imgs/motto.png" alt="" />
+        </div>
+      </div>
+      <div class="heading" style="text-align: center">
+        <h3 style="margin: 0">Edit Student Details</h3>
+      </div>
+
+      <!-- ================ Edit Form ================= -->
+
+      <div class="details">
+        <div class="table-container">
+          <form class="centered-form" [formGroup]="editStudentForm">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                formControlName="name"
+                placeholder="Enter student name"
+                required
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editStudentForm.get('name')?.invalid &&
+                  (editStudentForm.get('name')?.touched ||
+                    editStudentForm.get('name')?.dirty)
+                "
+              >
+                <small>Student name is required.</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="attendance">Roll number:</label>
+              <input
+                type="text"
+                id="rollno"
+                name="rollno"
+                formControlName="rollno"
+                placeholder="Enter student roll number"
+                required
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editStudentForm.get('rollno')?.invalid &&
+                  (editStudentForm.get('rollno')?.touched ||
+                    editStudentForm.get('rollno')?.dirty)
+                "
+              >
+                <small>Roll Number is required.</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="class">Degree:</label>
+              <select
+                id="degree"
+                name="class"
+                formControlName="degree"
+                required
+              >
+                <option value="">Select Degree</option>
+                <option value="UG">UG</option>
+                <option value="PG">PG</option>
+              </select>
+              <div
+                class="error"
+                *ngIf="
+                  editStudentForm.get('degree')?.invalid &&
+                  (editStudentForm.get('degree')?.touched ||
+                    editStudentForm.get('degree')?.dirty)
+                "
+              >
+                <small>Degree is required.</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="class">Year:</label>
+              <select id="class" name="class" formControlName="year" required>
+                <option value="">Select Year</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+              </select>
+              <div
+                class="error"
+                *ngIf="
+                  editStudentForm.get('year')?.invalid &&
+                  (editStudentForm.get('year')?.touched ||
+                    editStudentForm.get('year')?.dirty)
+                "
+              >
+                <small>Year is required.</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="class">Department:</label>
+              <select
+                id="department"
+                name="department"
+                formControlName="department"
+                required
+              >
+                <option value="">Select Department</option>
+                <option value="Arabic">Arabic</option>
+                <option value="Biotech">Biotech</option>
+                <option value="Botany">Botany</option>
+                <option value="BusinessAdministration">
+                  Business Administration
+                </option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Commerce">Commerce</option>
+                <option value="ComputerScience">Computer Science</option>
+                <option value="Economics">Economics</option>
+                <option value="English">English</option>
+                <option value="FashionTechnology">Fashion Technology</option>
+                <option value="French">French</option>
+                <option value="Hindi">Hindi</option>
+                <option value="History">History</option>
+                <option value="HotelManagement">Hotel Management</option>
+                <option value="Maths">Maths</option>
+                <option value="Microbiology">Microbiology</option>
+                <option value="Nutrients">Nutrients</option>
+                <option value="PhysicalEducation">Physical Education</option>
+                <option value="Physics">Physics</option>
+                <option value="Socialwork">Social Work</option>
+                <option value="Tamil">Tamil</option>
+                <option value="Urdu">Urdu</option>
+                <option value="VisualCommunication">
+                  Visual Communication
+                </option>
+                <option value="Zoology">Zoology</option>
+              </select>
+              <div
+                class="error"
+                *ngIf="
+                  editStudentForm.get('department')?.invalid &&
+                  (editStudentForm.get('department')?.touched ||
+                    editStudentForm.get('department')?.dirty)
+                "
+              >
+                <small>Department is required.</small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="attendance">Course Starting Year:</label>
+              <input
+                type="text"
+                id="startyear"
+                name="startyear"
+                formControlName="startyear"
+                placeholder="Enter Course Starting Year"
+                required
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editStudentForm.get('startyear')?.invalid &&
+                  (editStudentForm.get('startyear')?.touched ||
+                    editStudentForm.get('startyear')?.dirty)
+                "
+              >
+                <small>Starting year is required.</small>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="attendance">Course Ending Year:</label>
+              <input
+                type="text"
+                id="endyear"
+                name="endyear"
+                formControlName="endyear"
+                placeholder="Enter Course Ending Year"
+                required
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editStudentForm.get('endyear')?.invalid &&
+                  (editStudentForm.get('endyear')?.touched ||
+                    editStudentForm.get('endyear')?.dirty)
+                "
+              >
+                <small>Ending year is required.</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="class">Gender:</label>
+              <select
+                id="class"
+                name="gender"
+                formControlName="gender"
+                required
+              >
+                <option value="">Select Gender</option>
+                <option value="1">Male</option>
+                <option value="2">Female</option>
+              </select>
+              <div
+                class="error"
+                *ngIf="
+                  editStudentForm.get('gender')?.invalid &&
+                  (editStudentForm.get('gender')?.touched ||
+                    editStudentForm.get('gender')?.dirty)
+                "
+              >
+                <small>Gender is required.</small>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="attendance">Room Number:</label>
+              <input
+                type="text"
+                id="roomno"
+                name="roomno"
+                formControlName="roomno"
+                placeholder="Enter new room number"
+                required
+              />
+              <div
+                class="error"
+                *ngIf="
+                  editStudentForm.get('roomno')?.invalid &&
+                  (editStudentForm.get('roomno')?.touched ||
+                    editStudentForm.get('roomno')?.dirty)
+                "
+              >
+                <small>Room Number is required.</small>
+              </div>
+            </div>
+
+            <button type="submit" (click)="onEdit()">Update</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========== Scripts =========  -->
+  <script src="assets/js/main.js" type="text/javascript"></script>
+</body>

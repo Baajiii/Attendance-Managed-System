@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.attendance.Details.ClassWithStudentCount;
 import com.example.attendance.Models.ClassRooms;
 import com.example.attendance.Response.ClassEditResponse;
 import com.example.attendance.Response.ClassResponse;
@@ -20,7 +21,7 @@ import com.example.attendance.Response.TeacherResponse;
 import com.example.attendance.Servic.ClassServices;
 
 @RestController
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*")
 public class ClassController {
 
 	@Autowired
@@ -37,24 +38,31 @@ public class ClassController {
 	public TeacherResponse AssignTeacher(@RequestBody ClassRooms rooms) {
 		return Service.AssignTeacher(rooms);
 	}
-	
-	//Delete the class room and unassigned the students
+
+	// Delete the class room and unassigned the students
 	@DeleteMapping("/delete/room/{roomno}")
-	public RoomDeleteResponse DeleteRoom(@PathVariable("roomno")String roomno) {
+	public RoomDeleteResponse DeleteRoom(@PathVariable("roomno") String roomno) {
 		return Service.DeleteRoom(roomno);
 	}
-	
-	//Edit the Class Room details
+
+	// Edit the Class Room details
 	@PutMapping("/edit/class/{id}")
-	public ClassEditResponse EditClass(@RequestBody ClassRooms details,@PathVariable("id") Long id) {
+	public ClassEditResponse EditClass(@RequestBody ClassRooms details, @PathVariable("id") Long id) {
 		return Service.EditClass(details, id);
 	}
-	
-	//Find all the class rooms
+
+	// Find all the class rooms
 	@GetMapping("/findall/class")
-	public List<ClassRooms> FindAllClassRooms(){
+	public List<ClassRooms> FindAllClassRooms() {
 		return Service.FindAllClass();
 	}
+
+	// Find all the class rooms with student count
+	@GetMapping("/findall/classwithstudentcount")
+	public List<ClassWithStudentCount> FindAllClassRoomsWithStudentcount() {
+		return Service.FindAllClassWithStu();
+	}
+	
+	
+
 }
-
-

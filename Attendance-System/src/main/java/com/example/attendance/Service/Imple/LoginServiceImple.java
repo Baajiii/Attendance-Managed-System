@@ -64,6 +64,11 @@ public class LoginServiceImple implements LoginServices {
 				flag = false;
 				message = "Incorrect Password";
 			}
+			if (!details.isRole()==co.isRole()) {
+				flag = false;
+                String ro = details.isRole() ? "Male" : "Female";
+				message = "You don't have access for " + ro + " students";
+			}
 		} else {
 			flag = false;
 			message = "No User Found";

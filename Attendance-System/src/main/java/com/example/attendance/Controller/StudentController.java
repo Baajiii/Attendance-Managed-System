@@ -54,6 +54,12 @@ public class StudentController {
 		return Service.EditStudent(details, id);
 	}
 
+	// Find all the Students based on gender
+	@GetMapping("/findall/students/{gender}")
+	public List<Students> FindAllStudentsByGender(@PathVariable("gender") boolean gender) {
+		return Service.FindAllStudentsByGender(gender);
+	}
+
 	// Find all the Students
 	@GetMapping("/findall/students")
 	public List<Students> FindAllStudents() {
@@ -74,7 +80,7 @@ public class StudentController {
 		return Service.FindyByRoomno(roomno);
 	}
 
-	// Find student based on roomno
+	// Clear student based on roomno////
 	@GetMapping("/clear/students/{roomno}")
 	public ClassEditResponse ClearStudentsByRoom(@PathVariable("roomno") String roomno) {
 		return Service.ClearStudentsByRoomNo(roomno);

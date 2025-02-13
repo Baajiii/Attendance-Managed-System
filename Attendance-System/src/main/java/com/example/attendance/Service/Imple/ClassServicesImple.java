@@ -1,12 +1,13 @@
 package com.example.attendance.Service.Imple;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.attendance.Details.ClassWithStudentCount;
 import com.example.attendance.Models.ClassRooms;
 import com.example.attendance.Repository.ClassRepository;
 import com.example.attendance.Repository.StudentsRepository;
@@ -34,7 +35,7 @@ public class ClassServicesImple implements ClassServices {
 		boolean flag = true;
 		String message = "New Class Added for " + addRooms.getYear() + "yr " + addRooms.getDegree() + " Successfully";
 		if (RoomNumberAlreadyExsist(addRooms.getRoomno())) {
-			message = "Room number is Already Present for " + addRooms.getYear() + " " + addRooms.getDegree()
+			message = "Room number is Already Present for " + addRooms.getYear() + "Yr "
 					+ " Class try with Another Class Name";
 			flag = false;
 		}
@@ -97,7 +98,7 @@ public class ClassServicesImple implements ClassServices {
 
 		RoomDeleteResponse response = new RoomDeleteResponse();
 		boolean flag = true;
-		String message = "Room Number " + roomno + " Deleted Sucessfully And Students Assigned to this Room " + roomno
+		String message = "Room Number " + roomno + " Deleted Sucessfully And Students Assigned to this Room No: " + roomno
 				+ " are Unassigned";
 		Optional<ClassRooms> room = classRepo.FindByRoomNumber(roomno);
 		if (room.isPresent()) {
@@ -148,6 +149,29 @@ public class ClassServicesImple implements ClassServices {
 	public List<ClassRooms> FindAllClass() {
 		
 		return classRepo.findAll();
+	}
+
+	
+	// Find all the classRooms with student count
+	@Override
+	public List<ClassWithStudentCount> FindAllClassWithStu() {
+		
+		 List<ClassRooms> room = classRepo.findAll();
+		 List<ClassWithStudentCount> studentcount = new ArrayList<ClassWithStudentCount>();
+		 for(ClassRooms r  : room) {
+			 ClassWithStudentCount count = new ClassWithStudentCount();
+			 count.setId(r.getId());
+			 count.setDegree(r.getDegree());
+			 count.setRoomno(r.getRoomno());
+			 count.setStaff(r.getTeachername());
+			 count.setYear(r.getYear());
+			 count.setStudentcount(r.getStudents().size());
+			 count.setPassword(r.getPassword());
+			 studentcount.add(count);
+		 }
+		 return studentcount;
+		 
+		 
 	}
 
 	

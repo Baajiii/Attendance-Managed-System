@@ -1,0 +1,89 @@
+.table-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure it takes full height */
+    padding: 10px;
+    margin-left: 400px;
+  }
+  
+  .centered-form {
+    background: var(--white);
+    padding: 10px;
+    border-radius: 20px;
+    box-shadow: 0 7px 25px rgba(0, 0, 0, 0.08);
+    width: 100%;
+    max-width: 600px; /* Adjust width as needed */
+  }
+  
+  .form-group {
+    margin-bottom: 10px;
+  }
+  
+  .form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: var(--black1);
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--black2);
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: var(--blue);
+  }
+  
+  .centered-form button {
+    width: 100%;
+    padding: 10px;
+    background: var(--blue);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .centered-form button:hover {
+    background: #1f1875;
+  }
+
+
+.table-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%; /* Ensure it takes full height */
+    padding: 20px;
+    max-height: 100%;
+    margin-top: 30px;
+  }
+  
+  .table-container table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table-container table thead {
+    position: sticky;
+    top: 0;
+    background-color: var(--white); /* Ensure the header stays visible */
+    z-index: 1;
+  }
+
+  .clickable-icon {
+    cursor: pointer;
+  }
+  

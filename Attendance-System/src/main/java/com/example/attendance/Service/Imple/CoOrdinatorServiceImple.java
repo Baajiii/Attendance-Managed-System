@@ -61,7 +61,7 @@ public class CoOrdinatorServiceImple implements CoOrdinatorService {
 		}
 	}
 
-	// Co-Ordinator Dashboard
+	// Co-Ordinator home Dashboard
 	@Override
 	public CoOrdinatorDashboardResponse dasboard(LocalDate date, boolean gender) {
 
@@ -80,12 +80,12 @@ public class CoOrdinatorServiceImple implements CoOrdinatorService {
 		return response;
 	}
 
-	// Co-Ordinator class dasboard
+	// Co-Ordinator year dasboard
 	@Override
-	public CoOrdinatorDashboardResponse Classdasboard(LocalDate date, int year) {
+	public CoOrdinatorDashboardResponse Classdasboard(LocalDate date, int year, boolean gender, String degree) {
 		CoOrdinatorDashboardResponse response = new CoOrdinatorDashboardResponse();
 
-		List<StudentsAttendance> attendancelist = attendRepo.FindByDateAndClass(date, year);
+		List<StudentsAttendance> attendancelist = attendRepo.FindByDateAndClass(date, year, gender, degree);
 		List<StudentsAttendance> OverAllPresent = attendancelist.stream().filter(attendance -> attendance.isStatus())
 				.collect(Collectors.toList());
 
@@ -97,6 +97,7 @@ public class CoOrdinatorServiceImple implements CoOrdinatorService {
 		return response;
 	}
 
+	// Co ordinator room dashboard
 	@Override
 	public CoOrdinatorDashboardResponse Roomdasboard(LocalDate date, String room) {
 		CoOrdinatorDashboardResponse response = new CoOrdinatorDashboardResponse();
@@ -111,5 +112,29 @@ public class CoOrdinatorServiceImple implements CoOrdinatorService {
 		return response;
 
 	}
+
+	// Admin  home dashboard
+	@Override
+	public CoOrdinatorDashboardResponse admindashboard(LocalDate date) {
+		CoOrdinatorDashboardResponse response = new CoOrdinatorDashboardResponse();
+		List<StudentsAttendance> attendancelist = attendRepo.FindByDate(date);
+		List<StudentsAttendance> OverAllPresent = attendancelist.stream().filter(attendance -> attendance.isStatus())
+				.collect(Collectors.toList());
+		List<StudentsAttendance> OverAllAbsent = attendancelist.stream().filter(attendance -> !attendance.isStatus())
+				.collect(Collectors.toList());
+		response.setStudentCount(attendancelist.size());
+		response.setPresent(OverAllPresent.size());
+		response.setAbsent(OverAllAbsent.size());
+		return response;	
+	}
+
+	// Find all Co-ordinator
+	@Override
+	public List<CoOrdinator> viewCoordinator() {
+		return repo.findAll();
+	}
+	
+	
+	
 
 }

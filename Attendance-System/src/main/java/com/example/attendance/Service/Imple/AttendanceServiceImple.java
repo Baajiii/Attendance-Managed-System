@@ -33,37 +33,45 @@ public class AttendanceServiceImple implements AttendanceService {
 	@Override
 	public AttedanceResponse MarkaAttendance(String rollno, boolean status) {
 
-		String message;
+		String message = null;
 		boolean flag = true;
 		LocalDate currentDate = LocalDate.now();
 		AttedanceResponse response = new AttedanceResponse();
-		Optional<Students> stu = stuRepo.FindByRoolNo(rollno);
-		try {
-			Students student = stu.get();
-			if (stu.isPresent()) {
-				StudentsAttendance attendance = new StudentsAttendance();
-				attendance.setClassno(student.getClassroom().getRoomno());
-				attendance.setDate(currentDate);
-				attendance.setDegree(student.getDegree());
-				attendance.setEndYear(student.getEndYear());
-				attendance.setRoolno(student.getRollno());
-				attendance.setStartYear(student.getStartYear());
-				attendance.setStatus(status);
-				attendance.setStudentname(student.getName());
-				attendance.setTeachername(student.getClassroom().getTeachername());
-				attendance.setYear(student.getYear());
-				attendance.setGender(student.getGender());
-				attendRepo.save(attendance);
-			}
-			if (status) {
-				message = "Mr/Miss " + student.getName() + " Marked as Present";
-			} else {
-				message = "Mr/Miss " + student.getName() + " Marked as Absent";
-			}
-			response.setName(student.getName());
+		Optional<StudentsAttendance> data = attendRepo.FindByDateAndRollno(currentDate, rollno);
+		if (data.isEmpty()) {
+			Optional<Students> stu = stuRepo.FindByRoolNo(rollno);
+			try {
+				Students student = stu.get();
+				if (stu.isPresent()) {
+					StudentsAttendance attendance = new StudentsAttendance();
+					attendance.setClassno(student.getClassroom().getRoomno());
+					attendance.setDate(currentDate);
+					attendance.setDegree(student.getDegree());
+					attendance.setEndYear(student.getEndYear());
+					attendance.setRoolno(student.getRollno());
+					attendance.setStartYear(student.getStartYear());
+					attendance.setStatus(status);
+					attendance.setStudentname(student.getName());
+					attendance.setTeachername(student.getClassroom().getTeachername());
+					attendance.setYear(student.getYear());
+					attendance.setGender(student.getGender());
+					attendRepo.save(attendance);
+				}
+				if (status) {
+					message = "Mr/Miss " + student.getName() + " Marked as Present";
+				} else {
+					message = "Mr/Miss " + student.getName() + " Marked as Absent";
+				}
+				response.setName(student.getName());
 
-		} catch (RuntimeException e) {
-			message = "No Student Exist";
+			} catch (RuntimeException e) {
+
+				message = "No Student Exist or No Class Assigned";
+				flag = false;
+				response.setName(rollno);
+			}
+		} else {
+			message = "Already marked for " + rollno;
 			flag = false;
 			response.setName(rollno);
 		}
@@ -72,9 +80,34 @@ public class AttendanceServiceImple implements AttendanceService {
 		return response;
 	}
 
+	// Edit the attendance
+	@Override
+	public AttedanceResponse EditAttendance(LocalDate date, String rollno, boolean status) {
+
+		String message;
+		boolean flag = true;
+		AttedanceResponse response = new AttedanceResponse();
+		Optional<StudentsAttendance> stu = attendRepo.FindByDateAndRollno(date, rollno);
+		if (stu.isPresent()) {
+			StudentsAttendance detail = stu.get();
+			detail.setStatus(status);
+			attendRepo.save(detail);
+		}
+		if (status) {
+			message = "Roll number " + rollno + " marked as present";
+		} else {
+			message = "Roll number " + rollno + " marked as absent";
+		}
+
+		response.setResponseMessage(message);
+		response.setStatus(flag);
+		return response;
+	}
+
 	// View attendace by year and batch
 	@Override
-	public List<StudentsAttendance> viewAttendance(int year, String startyear, String endyear, LocalDate date, boolean gender) {
+	public List<StudentsAttendance> viewAttendance(int year, String startyear, String endyear, LocalDate date,
+			boolean gender) {
 		return attendRepo.FindByYear(year, startyear, endyear, date, gender);
 	}
 
@@ -139,7 +172,7 @@ public class AttendanceServiceImple implements AttendanceService {
 	// Generate dynamic filename for the downloaded Excel file
 	@Override
 	public String generateExcelFilename(LocalDate date, String startYear, String endYear, String gender) {
-		return "Attendance " + date + " (" + startYear + "-" + endYear + ") "+ gender +".xlsx";
+		return "Attendance " + date + " (" + startYear + "-" + endYear + ") " + gender + ".xlsx";
 
 	}
 
@@ -148,10 +181,5 @@ public class AttendanceServiceImple implements AttendanceService {
 	public String generateExcelFilenameByRollno(String rollno) {
 		return "Attendance " + rollno + ".xlsx";
 	}
-
-	
-	
-	
-	
 
 }

@@ -2,6 +2,7 @@ package com.example.attendance.Servic;
 
 import java.util.List;
 
+import com.example.attendance.Details.ClassWithStudentCount;
 import com.example.attendance.Models.ClassRooms;
 import com.example.attendance.Response.ClassEditResponse;
 import com.example.attendance.Response.ClassResponse;
@@ -16,4 +17,5 @@ public interface ClassServices {
 	public RoomDeleteResponse DeleteRoom(String roomno);
 	public ClassEditResponse EditClass(ClassRooms details, Long id);
 	public List<ClassRooms> FindAllClass();
+	public List<ClassWithStudentCount> FindAllClassWithStu();
 }

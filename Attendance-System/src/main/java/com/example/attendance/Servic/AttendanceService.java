@@ -16,5 +16,6 @@ public interface AttendanceService {
 	public String generateExcelFilename(LocalDate date, String startYear, String endYear,String gender);
     public ByteArrayOutputStream exportAttendanceToExcel(List<StudentsAttendance> attendanceList) throws IOException;
 	public String generateExcelFilenameByRollno(String rollno);
+	public AttedanceResponse EditAttendance(LocalDate date, String rollno, boolean status);
 
 }

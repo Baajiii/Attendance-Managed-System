@@ -1,0 +1,180 @@
+<head>
+  <title>Co-ordinator dashboard</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+  />
+</head>
+<body>
+  <!-- =============== Navigation ================ -->
+  <div class="container">
+    <div class="navigation">
+      <ul>
+        <li>
+          <a href="/home">
+            <span class="icon">
+              <i class="fas fa-school fa-2x"></i>
+            </span>
+
+            <span id="brand" class="title">JMC</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/home">
+            <span class="icon">
+              <i class="fas fa-home"></i>
+            </span>
+            <span class="title">Dashboard</span>
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/attendancerollno">
+            <span class="icon">
+              <i class="fas fa-clipboard-list"></i>
+            </span>
+            <span class="title">Student Attendance</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/student">
+            <span class="icon">
+              <i class="fas fa-users"></i>
+            </span>
+            <span class="title">Students</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/room">
+            <span class="icon">
+              <i class="fas fa-building"></i>
+            </span>
+            <span class="title">Class</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="logout()" href="">
+            <span class="icon">
+              <i class="fas fa-sign-out"></i>
+            </span>
+            <span class="title">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ========================= Main ==================== -->
+    <div class="main">
+      <div class="topbar">
+        <div class="toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+        <div class="search"></div>
+
+        <div class="logout" style="margin-left: 500px">
+          <a (click)="logout()" href="">
+            <span class="icon">
+              <i class="fas fa-sign-out-alt fa-2x"></i>
+            </span>
+          </a>
+        </div>
+        <div class="user">
+          <img src="assets/imgs/motto.png" alt="" />
+        </div>
+      </div>
+      <div class="heading" style="text-align: center">
+        <h3 style="margin: 0">View Attendance</h3>
+      </div>
+
+      <!-- ================ Attedance Table ================= -->
+      <div class="details">
+        <div class="table-container">
+          <div class="newsletter-form">
+            <form
+              class="form"
+              [formGroup]="SearchForm"
+              (ngSubmit)="SearchStudents()"
+            >
+              <label for="year">Year:</label>
+              <select required formControlName="year" id="year">
+                <option value="" disabled selected>Select Year</option>
+                <option value="1">1st Year</option>
+                <option value="2">2nd Year</option>
+                <option value="3">3rd Year</option>
+                <option></option>
+              </select>
+              <label for="course">Date:</label>
+              <input
+                required=""
+                name="text"
+                id="text"
+                type="date"
+                formControlName="date"
+              />
+              <label for="course">Course Start Year:</label>
+              <input
+                required=""
+                placeholder="Start Year"
+                name="text"
+                id="text"
+                type="text"
+                formControlName="startYear"
+              />
+              <label for="course">Course End year:</label>
+
+              <input
+                required=""
+                placeholder="End Year"
+                name="text"
+                id="text"
+                type="text"
+                formControlName="endYear"
+              />
+              <input value="Search" type="submit" />
+            </form>
+          </div>
+          <div class="recentOrders">
+            <div class="cardHeader">
+              <h2>Attendance List</h2>
+              <button (click)="download(SearchForm.value)" class="btn">
+                Download
+              </button>
+            </div>
+            <table>
+              <thead>
+                <tr>
+                  <td style="text-align: center">Name</td>
+                  <td style="text-align: center">Roll number</td>
+                  <td style="text-align: center">Year</td>
+                  <td style="text-align: center">Marked by</td>
+                  <td>Status</td>
+                  <td>Date</td>
+                  <td>Room number</td>
+                  <td>Degree</td>
+                  <td>Batch</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of StudentData">
+                  <td>{{ row.studentname }}</td>
+                  <td style="text-align: center">{{ row.rollno }}</td>
+                  <td>{{ row.year }}</td>
+                  <td style="text-align: center">{{ row.teachername }}</td>
+                  <td>{{ row.status ? "Present" : "Absent" }}</td>
+                  <td>{{ row.date }}</td>
+                  <td style="text-align: center">{{ row.classno }}</td>
+                  <td>{{ row.degree }}</td>
+                  <td>{{ row.startYear }} - {{ row.endYear }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========== Scripts =========  -->
+  <script src="assets/js/main.js" type="text/javascript"></script>
+</body>

@@ -30,4 +30,4 @@ Co- ordinator functionality:
 
 Future options:
 
-1. Delete attendance details based on year's (So old students data can download and clear data in database)
+1. Delete attendance details based on year's (So old students data can download and clear data in database)Ass

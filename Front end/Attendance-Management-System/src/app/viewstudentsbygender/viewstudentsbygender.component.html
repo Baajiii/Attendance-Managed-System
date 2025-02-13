@@ -1,0 +1,105 @@
+<head>
+  <title>Co-ordinator dashboard</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+  />
+</head>
+<body>
+  <!-- =============== Navigation ================ -->
+  <div class="container">
+    <div class="navigation">
+      <ul>
+        <li>
+          <a href="/admindashboard">
+            <span class="icon">
+              <i class="fas fa-school fa-2x"></i>
+            </span>
+
+            <span id="brand" class="title">JMC</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/admindashboard">
+            <span class="icon">
+              <i class="fas fa-home"></i>
+            </span>
+            <span class="title">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/viewbygender">
+            <span class="icon">
+              <i class="fas fa-building"></i>
+            </span>
+            <span class="title">View Students</span>
+          </a>
+        </li>
+        <li>
+          <a href="/addCoordinator">
+            <span class="icon">
+              <i class="fas fa-users"></i>
+            </span>
+            <span class="title">Add Co-ordinator</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/viewCoordinator">
+            <span class="icon">
+              <i class="fas fa-building"></i>
+            </span>
+            <span class="title">View Co-ordinator</span>
+          </a>
+        </li>
+
+        <li>
+          <a (click)="logout()" class="clickable-icon">
+            <span class="icon">
+              <i class="fas fa-sign-out"></i>
+            </span>
+            <span class="title">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ========================= Main ==================== -->
+    <div class="main">
+      <div class="topbar">
+        <div class="toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="logout" style="margin-left: 1000px">
+          <a (click)="logout()" class="clickable-icon">
+            <span class="icon">
+              <i class="fas fa-sign-out-alt fa-2x"></i>
+            </span>
+          </a>
+        </div>
+        <div class="user">
+          <img src="assets/imgs/motto.png" alt="" />
+        </div>
+      </div>
+      <div class="heading" style="text-align: center">
+        <h3 style="margin: 0">Select Gender</h3>
+      </div>
+
+      <!-- ================ After Card ================= -->
+
+      <div class="details">
+        <!-- From Uiverse.io by bhaveshxrawat -->
+        <div id="card1" class="card" (click)="male()">
+          <h2>MALE</h2>
+        </div>
+        <div id="card2" class="card" (click)="female()">
+          <h2>FEMALE</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========== Scripts =========  -->
+  <script src="assets/js/main.js" type="text/javascript"></script>
+</body>

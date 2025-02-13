@@ -163,7 +163,14 @@ public class StudentServicesImple implements StudentServices {
 		return response;
 	}
 
-	// Find all students
+	// Find all students based on gender
+	@Override
+	public List<Students> FindAllStudentsByGender(boolean gender) {
+		return stuRepo.findBygender(gender);
+	}
+	
+	
+    // Find all the students
 	@Override
 	public List<Students> FindAllStudents() {
 		return stuRepo.findAll();

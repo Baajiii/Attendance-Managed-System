@@ -17,10 +17,12 @@ public interface StudentServices {
 	public ClassAssignResponse AssignClass(String rollno, String classname);
 	public StudentDeleteResponse deleteStudent(String rollno);
 	public StudentEditResponse EditStudent(StudentDetailsEdit details, Long id);
-	public List<Students> FindAllStudents();
+	public List<Students> FindAllStudentsByGender(boolean gender);
 	public List<Students> FindStudentByYearAndBatch(int year, String startyear, String endyear, boolean gender);
 	public List<Students> FindyByRoomno(String room);
 	public ClassEditResponse ClearStudentsByRoomNo(String room);
+	public List<Students> FindAllStudents();
+
 
 
 }

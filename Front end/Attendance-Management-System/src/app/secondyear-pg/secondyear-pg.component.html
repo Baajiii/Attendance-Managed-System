@@ -1,0 +1,245 @@
+<head>
+  <title>Co-ordinator dashboard</title>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+  />
+</head>
+<body>
+  <!-- =============== Navigation ================ -->
+  <div class="container">
+    <div class="navigation">
+      <ul>
+        <li>
+          <a href="/home">
+            <span class="icon">
+              <i class="fas fa-school fa-2x"></i>
+            </span>
+
+            <span id="brand" class="title">JMC</span>
+          </a>
+        </li>
+
+        <li>
+          <a href="/home">
+            <span class="icon">
+              <i class="fas fa-home"></i>
+            </span>
+            <span class="title">Dashboard</span>
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/student">
+            <span class="icon">
+              <i class="fas fa-users"></i>
+            </span>
+            <span class="title">Students</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/room">
+            <span class="icon">
+              <i class="fas fa-building"></i>
+            </span>
+            <span class="title">Class</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/attendancedate">
+            <span class="icon">
+              <i class="fas fa-clipboard-list"></i>
+            </span>
+            <span class="title">Attendance</span>
+          </a>
+        </li>
+
+        <li>
+          <a routerLink="/firstyear">
+            <span class="icon">
+              <i class="fas fa-graduation-cap"></i>
+            </span>
+            <span class="title">1st Years UG</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/secondyearug">
+            <span class="icon">
+              <i class="fas fa-book-open"></i>
+            </span>
+            <span class="title">2nd Years UG</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/thirdyearug">
+            <span class="icon">
+              <i class="fas fa-trophy"></i>
+            </span>
+            <span class="title">3rd Years UG</span>
+          </a>
+        </li>
+        <li>
+          <a routerLink="/firstyearpg">
+            <span class="icon">
+              <i class="fas fa-flask"></i>
+            </span>
+            <span class="title">1st Years PG</span>
+          </a>
+        </li>
+        <li>
+          <a (click)="logout()" href="">
+            <span class="icon">
+              <i class="fas fa-sign-out"></i>
+            </span>
+            <span class="title">Logout</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <!-- ========================= Main ==================== -->
+    <div class="main">
+      <div class="topbar">
+        <div class="toggle">
+          <i class="fas fa-bars"></i>
+        </div>
+
+        <div class="search">
+          <form [formGroup]="adminForm" (ngSubmit)="adminDashboard()">
+            <input
+              id="date-input"
+              type="date"
+              class="custom-date-input"
+              formControlName="date"
+            />
+            <button (click)="adminDashboard()" type="submit">
+              <i class="fas fa-search"></i>
+            </button>
+          </form>
+        </div>
+        <div class="logout" style="margin-left: 500px">
+          <a (click)="logout()" href="">
+            <span class="icon">
+              <i class="fas fa-sign-out-alt fa-2x"></i>
+            </span>
+          </a>
+        </div>
+        <div class="user">
+          <img src="assets/imgs/motto.png" alt="" />
+        </div>
+      </div>
+      <div class="heading" style="text-align: center">
+        <h3 style="margin: 0">Second Year PG</h3>
+      </div>
+
+      <!-- ======================= Cards ================== -->
+      <div class="cardBox">
+        <div class="card">
+          <div>
+            <div class="numbers">{{ attendanceDetails.studentCount }}</div>
+            <div class="cardName">Students</div>
+          </div>
+
+          <div class="iconBx">
+            <i class="fas fa-users"></i>
+          </div>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="numbers">{{ attendanceDetails.present }}</div>
+            <div class="cardName">Present</div>
+          </div>
+
+          <div class="iconBx">
+            <i class="fas fa-user-check"></i>
+          </div>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="numbers">{{ attendanceDetails.absent }}</div>
+            <div class="cardName">Absent</div>
+          </div>
+
+          <div class="iconBx">
+            <i class="fas fa-user-times"></i>
+          </div>
+        </div>
+
+        <div class="card">
+          <div>
+            <div class="numbers">{{ totalClasses }}</div>
+            <div class="cardName">Classes</div>
+          </div>
+
+          <div class="iconBx">
+            <i class="fas fa-chalkboard-teacher"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- ================ Order Details List ================= -->
+      <div class="details">
+        <div class="table-container">
+          <div class="recentOrders">
+            <div class="cardHeader">
+              <h2>Class List</h2>
+              <a href="#" class="btn">View All</a>
+            </div>
+
+            <table>
+              <thead>
+                <tr>
+                  <td>Staff</td>
+                  <td>Degree</td>
+                  <td>Room Number</td>
+                  <td>Year</td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of filteredClassData">
+                  <td>{{ row.teachername }}</td>
+                  <td>{{ row.degree }}</td>
+                  <td>{{ row.roomno }}</td>
+                  <td>{{ row.year }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ================= New Customers ================ -->
+        <div class="table-container">
+          <div class="recentCustomers">
+            <div class="cardHeader">
+              <h2>Departments</h2>
+            </div>
+
+            <table>
+              <tr *ngFor="let department of departmentCounts | keyvalue">
+                <td width="60px">
+                  <div class="imgBx">
+                    <img
+                      [src]="'assets/imgs/' + department.key + '.jpg'"
+                      alt="{{ department.key }}"
+                    />
+                  </div>
+                </td>
+                <td>
+                  <h4>
+                    {{ department.key }} <br />
+                    <span>{{ department.value }}</span>
+                  </h4>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========== Scripts =========  -->
+  <script src="assets/js/main.js" type="text/javascript"></script>
+</body>

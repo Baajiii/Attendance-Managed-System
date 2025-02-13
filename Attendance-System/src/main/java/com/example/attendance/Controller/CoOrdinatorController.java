@@ -1,6 +1,7 @@
 package com.example.attendance.Controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -28,6 +29,12 @@ public class CoOrdinatorController {
 	public CoOrdinateResponse AddNewCoOrdinator(@RequestBody CoOrdinator details) {
 		return Service.AddCoOrdinator(details);
 	}
+	
+	// Find all Co-ordinator
+	@GetMapping("/view/coordinator")
+	public List<CoOrdinator> ViewCoOrdinator() {
+		return Service.viewCoordinator();
+	}
 
 	// Delete the Co-ordinator
 	@GetMapping("/delete/coordinator/{name}")
@@ -35,7 +42,14 @@ public class CoOrdinatorController {
 		Service.DeleteCoOrdinator(name);
 	}
 
-	// Admin dashboard
+	// Admin home dashboard
+	@GetMapping("/admin/dashboard/{date}")
+	public CoOrdinatorDashboardResponse Admindashboard(
+			@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date) {
+		return Service.admindashboard(date);
+	}
+
+	// Co-ordinator home dashboard
 	@GetMapping("/admin/dashboard/{date}/{gender}")
 	public CoOrdinatorDashboardResponse dashboard(
 			@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
@@ -43,15 +57,16 @@ public class CoOrdinatorController {
 		return Service.dasboard(date, gender);
 	}
 
-	// Admin portal year dashboard
-	@GetMapping("/admin/year/dashboard/{date}/{year}")
+	// Co-ordinator portal year dashboard
+	@GetMapping("/admin/year/dashboard/{date}/{year}/{gender}/{degree}")
 	public CoOrdinatorDashboardResponse classDashboard(
 			@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,
-			@PathVariable("year") int year) {
-		return Service.Classdasboard(date, year);
+			@PathVariable("year") int year, @PathVariable("gender") boolean gender,
+			@PathVariable("degree") String degree) {
+		return Service.Classdasboard(date, year, gender, degree);
 	}
 
-	// Admin portal room dashboard
+	// Co-ordinator portal room dashboard//////////
 	@GetMapping("/admin/room/dashboard/{date}/{room}")
 	public CoOrdinatorDashboardResponse YearDashboard(
 			@PathVariable("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date,

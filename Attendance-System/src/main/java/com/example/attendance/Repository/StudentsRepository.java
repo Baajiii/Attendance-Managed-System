@@ -37,5 +37,8 @@ public interface StudentsRepository extends JpaRepository<Students, Long> {
 
 	@Query("SELECT s FROM Students s WHERE s.classroom.roomno = :roomno")
 	List<Students> findByRoomno(String roomno);
+	
+	@Query("SELECT s FROM Students s WHERE s.gender = :gender")
+	List<Students> findBygender(boolean gender);
 
 }

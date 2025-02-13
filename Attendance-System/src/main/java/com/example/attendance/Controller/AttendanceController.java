@@ -32,17 +32,24 @@ public class AttendanceController {
 		return Service.MarkaAttendance(rollno, status);
 	}
 
+	//Edit the attendance
+	@GetMapping("edit/attendance/{date}/{rollno}/{status}")
+	public AttedanceResponse EditAttendance(@PathVariable("date") String strdate, @PathVariable("rollno") String rollno, @PathVariable("status") boolean status ) {
+		LocalDate date = LocalDate.parse(strdate);
+        return Service.EditAttendance(date, rollno, status);
+	}
+	
+    //View attendance based on year for particular date	
 	@GetMapping("/view/attendance/{year}/{startyear}/{endyear}/{date}/{gender}")
 	public List<StudentsAttendance> viewAttendanceByYear(@PathVariable("year") int year,
 			@PathVariable("startyear") String startyear, @PathVariable("endyear") String endyear,
 			@PathVariable("date") String strdate,@PathVariable("gender") boolean gender) {
 
-		System.out.println(strdate);
 		LocalDate date = LocalDate.parse(strdate);
-		System.out.println(date);
 		return Service.viewAttendance(year, startyear, endyear, date, gender);
 	}
 
+	//View attendance for particular students
 	@GetMapping("/view/attendance/{rollno}")
 	public List<StudentsAttendance> viewAttendanceByRollno(@PathVariable("rollno") String rollno) {
 		return Service.viewAttendanceByRollno(rollno);

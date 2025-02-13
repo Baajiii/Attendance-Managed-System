@@ -2,6 +2,7 @@ package com.example.attendance.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -21,11 +22,19 @@ public interface AttendanceRepository extends JpaRepository<StudentsAttendance, 
 	
     @Query(value = "SELECT f FROM StudentsAttendance f WHERE f.date = :date AND f.gender = :gender")
 	List<StudentsAttendance> FindByDateAndGender(@Param("date") LocalDate date,@Param("gender") boolean gender);
+    
+    @Query(value = "SELECT f FROM StudentsAttendance f WHERE f.date = :date")
+  	List<StudentsAttendance> FindByDate(@Param("date") LocalDate date);
 	
-    @Query(value = "SELECT f FROM StudentsAttendance f WHERE f.date = :date AND f.year = :year")
-	List<StudentsAttendance> FindByDateAndClass(@Param("date") LocalDate date,@Param("year") int year);
+    @Query(value = "SELECT f FROM StudentsAttendance f WHERE f.date = :date AND f.year = :year AND f.gender = :gender AND f.degree = :degree")
+	List<StudentsAttendance> FindByDateAndClass(@Param("date") LocalDate date,@Param("year") int year, @Param("gender") boolean gender,@Param("degree") String degree);
     
     @Query(value = "SELECT f FROM StudentsAttendance f WHERE f.date = :date AND f.classno = :room")
 	List<StudentsAttendance> FindByDateAndYear(@Param("date") LocalDate date,@Param("room") String room);
 	
+    @Query(value = "SELECT f FROM StudentsAttendance f WHERE f.date = :date AND f.rollno = :rollno")
+   	Optional<StudentsAttendance> FindByDateAndRollno(@Param("date") LocalDate date,@Param("rollno") String rollno);
+   	
+    
+    
 }
