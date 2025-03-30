@@ -23,7 +23,7 @@ export class FirstyearUgComponent {
     absent: 0
   };
   yearFilter: number = 1; // Default year filter
-  degreeFilter: string = 'PG';
+  degreeFilter: string = 'UG';
   public adminForm !: FormGroup
   public classForm !: FormGroup
   submitted=false;
@@ -44,7 +44,7 @@ export class FirstyearUgComponent {
        date: [''],
        year: 1,
        role: this.adminRole,
-       degree: ['PG']
+       degree: ['UG']
      });
      }
  
@@ -108,7 +108,7 @@ export class FirstyearUgComponent {
   }
  
   calculateCounts(): void{
-    const secondYearStudents = this.StudentData.filter(student => student.year === 1  && student.degree === 'PG');
+    const secondYearStudents = this.StudentData.filter(student => student.year === 1  && student.degree === 'UG');
     this.departmentCounts = secondYearStudents.reduce((counts, student) => {
     counts[student.dept] = (counts[student.dept] || 0) + 1;
     return counts;

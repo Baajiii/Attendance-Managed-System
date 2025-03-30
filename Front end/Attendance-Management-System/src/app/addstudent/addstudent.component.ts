@@ -75,7 +75,6 @@ list: NodeListOf<HTMLElement>;
  
  addStudent(){
   this.submitted = true;
-  console.log(this.addStudentForm);
   if(this.addStudentForm.invalid){
     return;
   }

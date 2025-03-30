@@ -65,8 +65,6 @@ export class LoginComponent {
       sessionStorage.setItem('adminname',data.name);
       sessionStorage.setItem('adminrole',data.role);
       sessionStorage
-      sessionStorage.setItem('adminname',data.name);
-      sessionStorage.setItem('adminrole',data.role);
       if(data.status==true){
         Swal.fire({
           icon: 'success',

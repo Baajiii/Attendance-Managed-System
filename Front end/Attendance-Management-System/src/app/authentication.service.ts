@@ -53,7 +53,6 @@ redirectUser(role: string) {
     this.router.navigate(['/markattendance']);
   } else if (role === 'coordinator') {
     this.router.navigate(['/home']);
-
   }
 }
 

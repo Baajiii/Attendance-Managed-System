@@ -18,7 +18,6 @@ export class RestapiService {
       name: roomnumber,
       password: password
     }
-    console.log(body);
     return this.http.post(this.url + '/room/login', body)
   }
 
@@ -28,7 +27,6 @@ export class RestapiService {
       name: name,
       role: role
     }
-    console.log(body);
     return this.http.post(this.url + '/coordinator/login', body)
   }
 
@@ -53,7 +51,6 @@ export class RestapiService {
       degree:degree,
       gender:gender
     }
-    console.log(body);
     return this.http.post(this.url + '/add/new/student', body)
   }
 
