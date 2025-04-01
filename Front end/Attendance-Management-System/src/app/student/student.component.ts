@@ -84,7 +84,6 @@ export class StudentComponent {
   }
 
   assignClass(row){
-    console.log(row);
     this.submitted = true;
     if (this.studentForm.invalid) {
       return;
